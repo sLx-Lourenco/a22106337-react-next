@@ -2,7 +2,6 @@
 
 import tecnologias from '@/app/data/tecnologias.json';
 import { useParams, useRouter } from 'next/navigation';
-import Image from 'next/image';
 import TecnologiaDetailsCard from '@/componentes/TecnologiaDetailsCard/TecnologiaDetailsCard';
 import Botao from '@/componentes/Botao/Botao';
 
@@ -17,7 +16,7 @@ export default function TecnologiaPage() {
   }
 
 const handleClick = () => {
-    router.back(); // volta para a página anterior
+    router.back(); 
   };
 
   return(
