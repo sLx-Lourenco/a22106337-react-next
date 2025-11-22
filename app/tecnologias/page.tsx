@@ -1,6 +1,8 @@
 import tecnologias from '@/app/data/tecnologias.json';
 import Image from 'next/image';
 import TecnologiaCard from '@/componentes/TecnologiaCard/TecnologiaCard';
+import Link from 'next/link'
+
 
 export default function TecnologiasPage() {
   return (
@@ -8,11 +10,15 @@ export default function TecnologiasPage() {
       <h2>Tecnologias Exploradas</h2>
       <ul className="grid grid-cols-3 gap-4">
         {tecnologias.map((tech, index) => (
-          <TecnologiaCard
-          key={index}
-            title={tech.title}
-            image={`/tecnologias/${tech.image}`}
-            />
+           <Link key={index} href={`/tecnologias/${index}`}>
+           
+              <TecnologiaCard
+              key={index}
+              title={tech.title}
+              image={`/tecnologias/${tech.image}`}
+              />
+
+           </Link> 
         ))}
       </ul>
     </>

@@ -15,7 +15,7 @@
     "title": "Tailwind CSS",
     "image": "tailwind.svg",
     "description": "Framework CSS utilitária que permite criar interfaces rapidamente.",
-    "rating": 5
+    "rating": 3.5
   },
   {
     "title": "JavaScript",
@@ -69,7 +69,7 @@
     "title": "Next.js",
     "image": "nextjs.svg",
     "description": "Framework React com rendering otimizado e funcionalidades avançadas.",
-    "rating": 5
+    "rating": 4.5
   },
   {
     "title": "Vercel",
