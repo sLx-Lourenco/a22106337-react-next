@@ -1,4 +1,4 @@
-export default function Page() {
+export default function CaracteristicasPage() {
     const caracteristicas = [
         'JSX, sintaxe que mistura HTML e JS.',
         'Componentes, funções que retornam JSX.',
