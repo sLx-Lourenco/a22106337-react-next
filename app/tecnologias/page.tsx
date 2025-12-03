@@ -1,5 +1,4 @@
 import tecnologias from '@/app/data/tecnologias.json';
-import Image from 'next/image';
 import TecnologiaCard from '@/componentes/TecnologiaCard/TecnologiaCard';
 import Link from 'next/link'
 
