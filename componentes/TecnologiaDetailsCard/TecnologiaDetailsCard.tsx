@@ -1,5 +1,7 @@
 import Image from "next/image";
 import InsercaoEstrela from "@/componentes/InsercaoEstrela/InsercaoEstrela";
+import ContadorPorTecnologia from "../ContadorPorTecnologia/ContadorPorTecnologia"
+
 
 interface TecnologiaDetailsCardProps {
   tecnologia: {
@@ -32,6 +34,7 @@ export default function TecnologiaDetailsCard({ tecnologia, index }: TecnologiaD
           <InsercaoEstrela key={index} numEstrela={tecnologia.rating} />
         </div>
       </div>
+      <ContadorPorTecnologia tecnologia={tecnologia.title} />
     </div>
   );
 }

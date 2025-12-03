@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ContadorPorTecnologia from "../ContadorPorTecnologia/ContadorPorTecnologia"
 
 interface TecnologiaCardProps {
   title: string;
@@ -16,6 +17,7 @@ export default function TecnologiaCard({ title, image }: TecnologiaCardProps) {
         className="object-contain"
       />
       <h3 className="text-lg font-semibold">{title}</h3>
+      <ContadorPorTecnologia tecnologia={title} />
     </div>
     
   );
