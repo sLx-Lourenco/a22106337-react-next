@@ -25,7 +25,7 @@ export default function page() {
   const transformMuni = data?.map(m=> ({
     ...m,
     displayName: `${m.name} (${m.district_name})`
-  })) || '[]'
+  })) || [];
 
 //
 //D. Funcoes utilitarias
