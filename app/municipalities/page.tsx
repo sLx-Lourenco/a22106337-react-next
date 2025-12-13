@@ -41,7 +41,9 @@ function addRemoveMunicipality(municipio:string) {
 
 
 
-  
+//
+//G. Renderizacao de Componentes
+
   if(error) return <div>Error Loading</div>
   if(isLoading) return <div>Loading...</div>
   if(!data) return <div>No data</div>
