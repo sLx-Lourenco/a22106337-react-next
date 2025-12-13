@@ -6,6 +6,8 @@ import useSWR from 'swr'
 import { Municipality } from '@/models/interfaces'
 import MunicipalityCard from '@/componentes/MunicipalityPage/MunicipalityCard/MunicipalityCard'
 import { useEffect, useState } from 'react'
+import { stringify } from 'querystring'
+import { listenerCount } from 'process'
 
 export default function page() {
 
@@ -20,26 +22,35 @@ export default function page() {
     
 //
 //C. Transformacao/Processamento de dados
+  const transformMuni = data?.map(m=> ({
+    ...m,
+    displayName: `${m.name} (${m.district_name})`
+  })) || '[]'
 
 //
-//D. Funcoes auxiliares
+//D. Funcoes utilitarias
+  function toggleItemList(list: string[], item: string): string[]{
+
+    return list.includes(item)? list.filter(i => i != item) : [...list, item];
+  }
 
 //
 //E. Handlers (interacao do utilizador)
 function addRemoveMunicipality(municipio:string) {
-        setMunicipalitiesList((prev) => 
-            prev.includes(municipio)? prev.filter(m => m != municipio) : [...prev, municipio]
-        )
+        setMunicipalitiesList((prev) => toggleItemList(prev, municipio))
     }
 
 
 //
 //F. Efeitos
   useEffect(()=>{
-        console.log(municipalitiesList)
+    const localMunicipalitiesList = localStorage.getItem('municipalitiesList') || '[]';
+    setMunicipalitiesList(JSON.parse(localMunicipalitiesList));
+  }, [])
+
+  useEffect(()=>{
+        localStorage.setItem('municipalitiesList', JSON.stringify(municipalitiesList))
   }, [municipalitiesList])
-
-
 
 //
 //G. Renderizacao de Componentes
@@ -50,16 +61,27 @@ function addRemoveMunicipality(municipio:string) {
 
     
 
-  return <section>
-    {data.map(m => (
+  return <section className='h-full flex'>
+    
+    <article className='overflow-auto w-1/3 bg-gray-200 p-2 m-2'>
+      <p className='p-2'>Municipios Escolhidos:</p>
+      {municipalitiesList.map(m =>
+        <div key={m} className='p-2 bg-gray-400 text-black m-2'>{m}</div>
+      )}
+    </article>
+    
+    
+    <article className='overflow-auto w-2/3'>
+      {transformMuni.map(m => (
         <MunicipalityCard
             key={m.id}
-            id={m.id}
-            name={m.name}
-            district_name={m.district_name}
+            displayName= {m.displayName}
             addRemoveMunicipality = {()=> addRemoveMunicipality(m.name)}
+            isSelected = {municipalitiesList.includes(m.name)}
         />
     ))}
+    </article>
+    
         
   </section>
 } 
