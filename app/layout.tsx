@@ -32,13 +32,16 @@ export default function RootLayout({
         <header className="flex flex-col items-center">
           <h1>React & Next.js</h1>
           <nav className="flex gap-4">
-            <Link href="/">Intro</Link>
-            <Link href="/sobre">Sobre</Link>
-            <Link href="/caracteristicas">Caracteristicas </Link>
-            <Link href="/tecnologias">Tecnologias</Link>
-            <Link href="/projetos">Projetos</Link>
-            <Link href="/contador">Contador</Link>
-            <Link href="/input">Input</Link>
+            <Link href="/" className="hover:underline">Intro</Link>
+            <Link href="/sobre" className="hover:underline">Sobre</Link>
+            <Link href="/caracteristicas" className="hover:underline">Caracteristicas </Link>
+            <Link href="/tecnologias" className="hover:underline">Tecnologias</Link>
+            <Link href="/projetos" className="hover:underline">Projetos</Link>
+            <Link href="/contador" className="hover:underline">Contador</Link>
+            <Link href="/input" className="hover:underline">Input</Link>
+            
+            <Link href="/municipalities" className="hover:underline">Municipios</Link>
+
 
 
 

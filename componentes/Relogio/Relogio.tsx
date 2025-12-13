@@ -36,7 +36,7 @@ function Relogio() {
   const horaFormatada = hora.toLocaleTimeString('pt-BR');
 
   return (
-    <div className="text-xl font-bold font-mono text-white">
+    <div className="text-xl font-bold font-mono">
       {horaFormatada}
     </div>
   );
