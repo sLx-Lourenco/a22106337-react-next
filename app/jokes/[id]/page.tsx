@@ -19,10 +19,10 @@ export default function JokePage() {
 
     const params = useParams()
     const id = params.id;
+    const[visivel, setVisivel]=React.useState(false);
 
 
-
-    const url = 'https://official-joke-api.appspot.com/jokes/' + id;
+    const url = `/api/jokes/${id}`
     const{data, error, isLoading}=useSWR<Joke>(url, fetcher);
 
 
@@ -34,12 +34,15 @@ export default function JokePage() {
 
   return (
     <article className='min-h-[70vh] p-5 rounded-2xl flex flex-col items-center justify-center bg-yellow-500'>
-        <button 
-            className='font-bold'
+        <h2>{data.setup}</h2>
+        
+        { !visivel ? 
+        (<button 
+            className='font-bold bg-gray-800 text-white p-2 m-4 rounded-2xl hover:bg-gray-600 active:bg-gray-700'
+            onClick={()=>setVisivel(true)}
         >
-            {data.setup}
-        </button>
-        <p>{data.punchline}</p>
+            Mostrar
+        </button>):  (<p>{data.punchline}</p>)}
     </article>
   )
 }

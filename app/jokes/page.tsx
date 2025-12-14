@@ -22,7 +22,7 @@ export default function JokesPage() {
     const [filteredJokes, setFilteredJokes] = useState<Joke[]>([])
 
     // Fetch de Dados
-    const url = 'https://official-joke-api.appspot.com/jokes/random/400';
+    const url = 'api/jokes';
     const{data, error, isLoading}=useSWR<Joke[]>(url, fetcher);
     //Efects
 
