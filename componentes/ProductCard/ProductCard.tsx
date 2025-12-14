@@ -1,13 +1,16 @@
+import Link from 'next/link';
 import Image from 'next/image';
 
 export interface ProductProps{
+    id: string;
     title: string;
+    price: string;
     image: string;
     addRemoveProduct: ()=>void;
     isSelected: boolean
 }
 
-export default function ProductCard({ title, image, addRemoveProduct, isSelected }: ProductProps) {
+export default function ProductCard({ id, title, price, image, addRemoveProduct, isSelected }: ProductProps) {
     return (
         <article
             className={`
@@ -26,16 +29,30 @@ export default function ProductCard({ title, image, addRemoveProduct, isSelected
                 className="rounded-md shadow-md mb-3"
             />
             <p className="font-semibold text-lg text-black mb-3 text-center">{title}</p>
+            <p className="font-semibold text-lg text-black mb-3 text-center">{price}0 €</p>
+
+
             <button
                 onClick={addRemoveProduct}
                 className={`
-                    px-4 py-2 rounded-full
+                    px-4 py-2 rounded-full border 
                     ${isSelected ? 'bg-red-500 hover:bg-red-400' : 'bg-green-500 hover:bg-green-400'}
                     text-white font-bold transition-colors duration-200
                 `}
             >
                 {isSelected ? '-' : '+'}
             </button>
+            <Link href={`/deisiShop/products/${id}`}>
+                <button
+                    className={`
+                        px-4 py-2 rounded-full border 
+                        bg-yellow-500 hover:bg-yellow-400
+                        text-white font-bold transition-colors duration-200
+                    `}
+                >
+                    +info
+                </button>
+            </Link>
         </article>
     );
 }

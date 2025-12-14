@@ -8,6 +8,7 @@ import MunicipalityCard from '@/componentes/MunicipalityPage/MunicipalityCard/Mu
 import { useEffect, useState } from 'react'
 import { stringify } from 'querystring'
 import { listenerCount } from 'process'
+import { Spinner } from '@/componentes/ui/spinner'
 
 export default function page() {
 
@@ -56,7 +57,13 @@ function addRemoveMunicipality(municipio:string) {
 //G. Renderizacao de Componentes
 
   if(error) return <div>Error Loading</div>
-  if(isLoading) return <div>Loading...</div>
+  if (isLoading) {
+      return (
+        <div className="flex justify-center items-center h-full">
+          <Spinner className="size-6 text-yellow-600" />
+        </div>
+      )
+    }
   if(!data) return <div>No data</div>
 
     
