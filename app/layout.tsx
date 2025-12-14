@@ -39,13 +39,11 @@ export default function RootLayout({
             <Link href="/projetos" className="hover:underline">Projetos</Link>
             <Link href="/contador" className="hover:underline">Contador</Link>
             <Link href="/input" className="hover:underline">Input</Link>
-            
+            <Link href="/deisiShop" className="hover:underline">DEISIshop</Link>
+
+
             <Link href="/municipalities" className="hover:underline">Municipios</Link>
 
-
-
-
-            
           </nav>
         </header>
         
