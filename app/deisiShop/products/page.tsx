@@ -12,7 +12,6 @@ export default function page() {
   //
   //A. Gestao de Estados
   const [productsList, setProductList] = useState<string[]>([])
-
   const [search, setSearch] = useState<string>('')
 
 // estados para ordenação
