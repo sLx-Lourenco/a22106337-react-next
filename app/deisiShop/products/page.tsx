@@ -5,12 +5,17 @@ import { useEffect, useState } from 'react'
 import { Product } from '@/models/interfaces'
 import ProductCard from '@/componentes/ProductCard/ProductCard'
 import useSWR from 'swr'
-
+import { Loader2 } from "lucide-react"
+import { useMemo } from 'react'
 
 export default function page() {
  //
 //A. Gestao de Estados
   const[productsList, setProductList] = useState<string[]>([])
+
+  const[search, setSearch]= useState<string>('')
+  
+
 
 //
 //B. Fetch de Dados
@@ -18,10 +23,17 @@ export default function page() {
   const{data, error, isLoading} = useSWR<Product[], Error>('/api/productsShop', fetcher)
     
 
+  const filteredData = useMemo(() => {
+  if (!data) return []
+
+  return data.filter(product =>
+    product.title.toLowerCase().includes(search.toLowerCase())
+  )
+}, [search, data])
+
 //
 //D. Funcoes utilitarias
   function toggleItemList(list: string[], item: string): string[]{
-
     return list.includes(item)? list.filter(i => i != item) : [...list, item];
   }
 
@@ -43,16 +55,39 @@ function addRemoveProduct(product:string) {
         localStorage.setItem('productsList', JSON.stringify(productsList))
   }, [productsList])
 
+  
 //
 //G. Renderizacao de Componentes
 
-  if(error) return <div>Error Loading</div>
-  if(isLoading) return <div>Loading...</div>
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-full text-red-500">
+        Erro ao carregar os dados.
+      </div>
+    )
+  }
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-full">
+        <Loader2 className="h-8 w-8 animate-spin text-gray-600" />
+      </div>
+    )
+  }
   if(!data) return <div>No data</div>
 
     
 
-  return <section className='h-full flex'>
+  return <section>
+  <input
+        type="text"
+        placeholder="Procurar..."
+        className="border border-black rounded px-3 py-2 "
+        value={search}
+        onChange={(e)=> setSearch(e.target.value)}
+      />
+  
+  <section className='h-full flex'>
+
   <article className='overflow-auto w-1/3 bg-gray-200 p-2 m-2'>
     <p className='p-2 font-semibold'>Produtos Escolhidos:</p>
     {productsList.map(p => (
@@ -64,7 +99,7 @@ function addRemoveProduct(product:string) {
 
   {/* Grid de produtos */}
   <article className='overflow-auto w-2/3 p-2 grid grid-cols-2 gap-2'>
-    {data.map(p => (
+    {filteredData.map(p => (
       <ProductCard
         key={p.id}
         title={p.title}
@@ -75,5 +110,9 @@ function addRemoveProduct(product:string) {
     ))}
   </article>
 </section>
+
+  </section>
+  
+  
 
 } 
