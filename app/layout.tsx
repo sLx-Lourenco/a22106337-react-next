@@ -39,6 +39,8 @@ export default function RootLayout({
             <Link href="/projetos" className="hover:underline">Projetos</Link>
             <Link href="/contador" className="hover:underline">Contador</Link>
             <Link href="/input" className="hover:underline">Input</Link>
+            <Link href="/jokes" className="hover:underline">Jokes</Link>
+
             <Link href="/deisiShop" className="hover:underline">DEISIshop</Link>
 
 

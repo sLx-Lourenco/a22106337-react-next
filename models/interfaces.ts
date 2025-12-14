@@ -20,3 +20,10 @@ export interface Product{
 export interface Categoria{
     name: string;
 }
+
+export interface Joke{
+    type: string;
+    setup: string;
+    punchline: string;
+    id: number;
+}
