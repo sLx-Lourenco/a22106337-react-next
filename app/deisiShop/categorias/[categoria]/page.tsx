@@ -40,7 +40,7 @@ export default function CategoriaPage() {
         {params.categoria}
       </h1>
 
-      <div className="gap-6">
+      <div className="flex flex-col gap-6">
         {produtos.map(p => (
           <ProductBasicCard
             key={p.id}
