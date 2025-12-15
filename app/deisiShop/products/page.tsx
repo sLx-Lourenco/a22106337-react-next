@@ -234,6 +234,7 @@ export default function page() {
       {/* Grid de produtos */}
       <article className='overflow-auto w-2/3 p-2 grid grid-cols-2 gap-2'>
         {filteredData.map(p => (
+        
           <ProductCard
             key={p.id}
             id={p.id}
