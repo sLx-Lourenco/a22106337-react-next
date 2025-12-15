@@ -17,7 +17,7 @@ export default function InsercaoEstrela({ numEstrela }: estrelaProps) {
     estrelas.push('☆');
   }
 
-  return <span>{estrelas.join('')}</span>;
+  return <span style={{ color: 'white' }}>{estrelas.join('')}</span>;
 }
 
 //link para emojis: https://emojicombos.com/half-star

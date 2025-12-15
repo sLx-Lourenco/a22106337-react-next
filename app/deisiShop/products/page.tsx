@@ -13,6 +13,12 @@ export default function page() {
   //A. Gestao de Estados
   const [productsList, setProductList] = useState<string[]>([])
   const [search, setSearch] = useState<string>('')
+  const [student, setStudent] = useState<boolean>(false)
+  const [coupon, setCoupon] = useState<string>('')
+  const [buying, setBuying] = useState<boolean>(false)
+  const [message, setMessage] = useState<string>('')
+  const [name, setName] = useState<string>('')
+  
 
 // estados para ordenação
   const [sortName, setSortName] = useState<'asc' | 'desc' | ''>('')
@@ -75,9 +81,48 @@ export default function page() {
     localStorage.setItem('productsList', JSON.stringify(productsList))
   }, [productsList])
 
+  
 
   //
   //G. Renderizacao de Componentes
+
+  const total = useMemo(() => {
+    if (!data) return 0
+    return productsList.reduce((acc, title) => {
+      const prod = data.find(p => p.title === title)
+      return acc + (prod ? Number(prod.price) : 0)
+    }, 0)
+  }, [productsList, data])
+
+  async function buy() {
+    if (!data) return
+    const productIds = productsList.map(title => {
+      const prod = data.find(p => p.title === title)
+      return prod ? prod.id : null
+    }).filter((id): id is string => id !== null)
+
+    setBuying(true)
+    setMessage('')
+    try {
+      const res = await fetch('https://deisishop.pythonanywhere.com/buy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ products: productIds, name, student, coupon })
+      })
+      const json = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        setMessage(json?.message || res.statusText || 'Erro ao comprar')
+        return
+      }
+      setProductList([])
+      localStorage.setItem('productsList', JSON.stringify([]))
+      setMessage(json?.message || 'Compra efetuada com sucesso')
+    } catch (e: any) {
+      setMessage(e?.message || 'Erro ao comprar')
+    } finally {
+      setBuying(false)
+    }
+  }
 
   if (error) {
     return (
@@ -134,6 +179,51 @@ export default function page() {
 
       <article className='overflow-auto w-1/3 bg-gray-200 p-2 m-2'>
         <p className='p-2 font-semibold'>Produtos Escolhidos:</p>
+        <p className='p-2 font-semibold'>Total: {total.toFixed(2)} €</p>
+        <div className='p-2'>
+          <label className='flex items-center gap-2'>
+            <input
+              type="checkbox"
+              checked={student}
+              onChange={(e) => setStudent(e.target.checked)}
+            />
+            Estudante DEISI
+          </label>
+
+          <label className='block mt-2'>
+            Nome:
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className='border ml-2 px-2 py-1 w-32'
+              placeholder='Nome'
+            />
+          </label>
+
+          <label className='block mt-2'>
+            Cupom:
+            <input
+              type="text"
+              value={coupon}
+              onChange={(e) => setCoupon(e.target.value)}
+              className='border ml-2 px-2 py-1 w-32'
+              placeholder='Cupom'
+            />
+          </label>
+
+          <div className='mt-3'>
+            <button
+              onClick={buy}
+              disabled={buying || productsList.length === 0}
+              className='bg-blue-600 text-white px-3 py-2 rounded disabled:opacity-50'
+            >
+              {buying ? 'Comprando...' : 'Comprar'}
+            </button>
+          </div>
+
+          {message && <p className='mt-2'>{message}</p>}
+        </div>
         {productsList.map(p => (
           <div key={p} className='p-2 bg-gray-400 text-black m-2 rounded'>
             {p}
